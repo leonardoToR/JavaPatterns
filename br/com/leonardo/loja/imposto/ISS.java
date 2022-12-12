@@ -4,9 +4,14 @@ import java.math.BigDecimal;
 
 import br.com.leonardo.loja.orcamento.Orcamento;
 
-public class ISS implements Imposto {
-    
-    public BigDecimal calcular(Orcamento orcamento){
-        return orcamento.getValor().multiply(new BigDecimal(0.06));
-    }
+public class ISS extends Imposto {
+
+	public ISS(Imposto outro) {
+		super(outro);
+	}
+	
+	public BigDecimal realizarCalculoEspecifico(Orcamento orcamento) {
+		return orcamento.getValor().multiply(new BigDecimal("0.06"));
+	}
+
 }

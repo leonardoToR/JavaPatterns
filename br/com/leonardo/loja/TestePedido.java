@@ -18,6 +18,6 @@ public class TestePedido {
         GeraPedidoHandler handler = new GeraPedidoHandler(
             Arrays.asList(new SalvarPedidoNoBDD(), 
             new EnviarEmailPedido()));
-        handler.execute(gerador);
+        handler.executar(gerador);
     }
 }

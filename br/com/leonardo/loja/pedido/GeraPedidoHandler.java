@@ -8,22 +8,18 @@ import br.com.leonardo.loja.pedido.acao.AcaoAposGerarPedido;
 
 public class GeraPedidoHandler {
 
-    private List<AcaoAposGerarPedido> acoes;
+	private List<AcaoAposGerarPedido> acoesAposGerarPedido;
+	
+	// injecao de dependencias para servicos de infra
+	public GeraPedidoHandler(List<AcaoAposGerarPedido> acoesAposGerarPedidos) {
+		acoesAposGerarPedido = acoesAposGerarPedidos;
+	}
 
-    //construtor com injeção de dependencias : repository, service, etc
+	public void executar(GeraPedido geraPedido) {
+		Orcamento orcamento = new Orcamento(geraPedido.getValorOrcamento(), geraPedido.getQuantidadeItens());
+		Pedido pedido = new Pedido(geraPedido.getCliente(), LocalDateTime.now(), orcamento);
 
-    public GeraPedidoHandler(List<AcaoAposGerarPedido> acoes) {
-        this.acoes = acoes;
-    }
-
-    public void execute(GeraPedido dados){
-        Orcamento orcamento = new Orcamento(dados.getValorOrcamento(), dados.getQuantidadeItens());
-        String cliente = dados.getCliente();
-        LocalDateTime data = LocalDateTime.now();
-
-        Pedido pedido = new Pedido(cliente, data, orcamento);
-
-        acoes.forEach(a -> a.executarAcao(pedido));
-    }
-    
+		this.acoesAposGerarPedido.forEach(a -> a.executarAcao(pedido));
+	}
+	
 }
