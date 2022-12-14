@@ -5,19 +5,22 @@ import java.math.BigDecimal;
 import br.com.leonardo.loja.DomainException;
 import br.com.leonardo.loja.orcamento.Orcamento;
 
-public abstract class SituacaoOrcamento{
-    public BigDecimal calcularValorDoDescontoExtra(Orcamento orcamento){
-        return BigDecimal.ZERO;
-    }
 
-    public void aprovar(Orcamento orcamento){
-        throw new DomainException("Orçamento nao pode ser aprovado");
-    }
 
-    public void reprovar(Orcamento orcamento){
-        throw new DomainException("Orçamento nao pode ser reprovado");
-    }
-    public void finalizar(Orcamento orcamento){
-        throw new DomainException("Orçamento nao pode ser finalizado");
-    }
+public abstract class SituacaoOrcamento {
+
+	public abstract BigDecimal calcularDescontoExtra(Orcamento orcamento);
+	
+	public void aprovar(Orcamento orcamento) throws DomainException {
+		throw new DomainException("Orcamento nao pode ser aprovado!");
+	}
+	
+	public void reprovar(Orcamento orcamento) throws DomainException {
+		throw new DomainException("Orcamento nao pode ser reprovado!");
+	}
+	
+	public void finalizar(Orcamento orcamento) throws DomainException {
+		throw new DomainException("Orcamento nao pode ser finalizado!");
+	}
+
 }
